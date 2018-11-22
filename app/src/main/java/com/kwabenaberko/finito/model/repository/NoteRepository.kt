@@ -1,9 +1,12 @@
 package com.kwabenaberko.finito.model.repository
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.kwabenaberko.finito.model.Note
 
 class NoteRepository {
     private val NOTES = mutableListOf<Note>()
+    private val notesLiveData = MutableLiveData<List<Note>>()
 
     fun saveNote(note: Note): Note {
         checkFieldsNotEmpty(note)
@@ -24,8 +27,9 @@ class NoteRepository {
         return note
     }
 
-    fun findSavedNotes(): List<Note>{
-        return NOTES
+    fun findSavedNotes(): LiveData<List<Note>>{
+        notesLiveData.postValue(NOTES)
+        return notesLiveData
     }
 
     private fun checkFieldsNotEmpty(note: Note){

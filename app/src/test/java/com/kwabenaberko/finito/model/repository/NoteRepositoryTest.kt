@@ -1,13 +1,17 @@
 package com.kwabenaberko.finito.model.repository
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.Priority
 import junit.framework.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class NoteRepositoryTest {
 
+    @get:Rule
+    val taskRule = InstantTaskExecutorRule()
     private lateinit var noteRepository: NoteRepository
 
     @Before
@@ -62,9 +66,11 @@ class NoteRepositoryTest {
             noteRepository.saveNote(it)
         }
 
-        val savedNotes = noteRepository.findSavedNotes()
+        noteRepository.findSavedNotes().observeForever{
+            assertEquals(3, it?.size)
+        }
 
-        assertEquals(3, savedNotes.size)
+
     }
 
 }
