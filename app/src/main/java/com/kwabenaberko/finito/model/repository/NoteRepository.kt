@@ -2,6 +2,7 @@ package com.kwabenaberko.finito.model.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.content.res.Resources.NotFoundException
 import com.kwabenaberko.finito.model.Note
 
 class NoteRepository {
@@ -15,14 +16,21 @@ class NoteRepository {
     }
 
     fun findNoteById(noteId: Int): Note {
-        return NOTES.filter {
+        val filtered = NOTES.filter {
             it.noteId == noteId
-        }[0]
+        }
+        if(filtered.isEmpty()){
+            throw NotFoundException()
+        }
+        return filtered[0]
     }
 
     fun updateNote(note: Note): Note {
         checkFieldsNotEmpty(note)
         val index = NOTES.indexOf(note)
+        if(index == -1){
+            throw NotFoundException()
+        }
         NOTES[index] = note
         return note
     }

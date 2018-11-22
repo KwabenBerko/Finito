@@ -1,6 +1,7 @@
 package com.kwabenaberko.finito.model.repository
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import android.content.res.Resources.NotFoundException
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.Priority
 import junit.framework.Assert.assertEquals
@@ -19,6 +20,7 @@ class NoteRepositoryTest {
         noteRepository = NoteRepository()
     }
 
+
     @Test(expected = IllegalArgumentException::class)
     fun testSaveNote_WithEmptyFields_ShouldThrowException(){
         val note = Note(text = "")
@@ -32,6 +34,16 @@ class NoteRepositoryTest {
         val savedNote = noteRepository.saveNote(note)
 
         assertEquals(savedNote, noteRepository.findNoteById(savedNote.noteId))
+    }
+
+    @Test(expected = NotFoundException::class)
+    fun testFindNoteById_WithInvalidNoteId_ShouldThrowException(){
+        noteRepository.findNoteById(1)
+    }
+
+    @Test(expected = NotFoundException::class)
+    fun testUpdateNote_WithInvalidNoteObject_ShouldThrowException(){
+        noteRepository.updateNote(Note(text = "Take a walk"))
     }
 
     @Test(expected = java.lang.IllegalArgumentException::class)
