@@ -1,7 +1,6 @@
 package com.kwabenaberko.finito.model.repository
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.content.res.Resources.NotFoundException
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.Priority
 import junit.framework.Assert.assertEquals
@@ -21,12 +20,6 @@ class NoteRepositoryTest {
     }
 
 
-    @Test(expected = IllegalArgumentException::class)
-    fun testSaveNote_WithEmptyFields_ShouldThrowException(){
-        val note = Note(text = "")
-        noteRepository.saveNote(note)
-    }
-
     @Test
     fun testSaveNote(){
         val note = Note(text = "Practice databinding", color = "#E1ECF4")
@@ -36,24 +29,12 @@ class NoteRepositoryTest {
         assertEquals(savedNote, noteRepository.findNoteById(savedNote.noteId))
     }
 
-    @Test(expected = NotFoundException::class)
-    fun testFindNoteById_WithInvalidNoteId_ShouldThrowException(){
-        noteRepository.findNoteById(1)
+    @Test()
+    fun testFindNoteById_WithInvalidNoteId_ShouldReturnNull(){
+        assertEquals(null, noteRepository.findNoteById(1))
     }
 
-    @Test(expected = NotFoundException::class)
-    fun testUpdateNote_WithInvalidNoteObject_ShouldThrowException(){
-        noteRepository.updateNote(Note(text = "Take a walk"))
-    }
 
-    @Test(expected = java.lang.IllegalArgumentException::class)
-    fun testUpdateNote_WithEmptyFields_ShouldThrowException(){
-        val savedNote = noteRepository.saveNote(Note(text = "Buy cornflakes"))
-        savedNote.text = ""
-        savedNote.color = ""
-
-        noteRepository.updateNote(savedNote)
-    }
 
     @Test
     fun testUpdateNote(){
@@ -65,6 +46,17 @@ class NoteRepositoryTest {
 
         assertEquals(savedNote, updatedNote)
     }
+
+    @Test
+    fun testDeleteNote(){
+        val note = Note(text = "A note to be deleted")
+        val savedNote = noteRepository.saveNote(note)
+
+        noteRepository.deleteNote(savedNote)
+
+        assertEquals(null, noteRepository.findNoteById(savedNote.noteId))
+    }
+
 
     @Test
     fun testFindSavedNotes(){
