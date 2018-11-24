@@ -20,4 +20,8 @@ open class ObservableViewModel : ViewModel(), Observable {
         mCallbacks.notifyChange(this, BR._all)
     }
 
+    fun notifyPropertyChanged(fieldId: Int){
+        mCallbacks.notifyChange(this, fieldId)
+    }
+
 }

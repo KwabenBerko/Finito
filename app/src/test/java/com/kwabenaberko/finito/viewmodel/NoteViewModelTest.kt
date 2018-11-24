@@ -95,7 +95,6 @@ class NoteViewModelTest {
         notesViewModel.deleteCurrentNote()
 
         verify(mockNoteRepository).deleteNote(notesViewModel.currentNote)
-        assertEquals(null, notesViewModel.currentNote)
     }
 
 }
