@@ -5,7 +5,10 @@ import android.arch.lifecycle.MutableLiveData
 import com.kwabenaberko.finito.model.Note
 
 class NoteRepository {
-    private val NOTES = mutableListOf<Note>()
+    private val NOTES = mutableListOf<Note>(
+            Note(text = "Watch Youtube Videos"),
+            Note(text = "Have A Good Sleep")
+    )
     private val notesLiveData = MutableLiveData<List<Note>>()
 
     fun saveNote(note: Note): Note {

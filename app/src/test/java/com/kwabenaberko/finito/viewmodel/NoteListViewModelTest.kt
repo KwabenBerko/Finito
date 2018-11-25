@@ -23,7 +23,7 @@ class NoteListViewModelTest {
 
     @Test
     fun deleteNote(){
-        mockNoteRepository.deleteNote(2)
+        noteListViewModel.deleteNote(2)
         verify(mockNoteRepository).deleteNote(Mockito.anyInt())
     }
 
