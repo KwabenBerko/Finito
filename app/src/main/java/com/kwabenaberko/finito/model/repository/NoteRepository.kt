@@ -14,11 +14,9 @@ class NoteRepository {
     }
 
     fun findNoteById(noteId: Int): Note? {
-        val filtered = NOTES.filter {
+        return NOTES.filter {
             it.noteId == noteId
-        }
-
-        return if (!filtered.isEmpty()) filtered[0] else null
+        }.firstOrNull()
     }
 
     fun updateNote(note: Note): Note? {
@@ -29,10 +27,13 @@ class NoteRepository {
         return note
     }
 
-    fun deleteNote(note: Note){
-        val index = NOTES.indexOf(note)
-        if(index > -1){
-            NOTES.removeAt(index)
+    fun deleteNote(noteId: Int){
+        val note = NOTES.filter {
+            it.noteId == noteId
+        }.firstOrNull()
+
+        if(note != null){
+            NOTES.remove(note)
         }
     }
 

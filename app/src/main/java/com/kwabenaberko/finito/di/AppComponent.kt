@@ -1,8 +1,10 @@
 package com.kwabenaberko.finito.di
 
 import com.kwabenaberko.finito.FinitoApp
+import com.kwabenaberko.finito.di.modules.ActivitiesBindingModule
 import com.kwabenaberko.finito.di.modules.ApplicationModule
 import com.kwabenaberko.finito.di.modules.RepositoryModule
+import com.kwabenaberko.finito.di.modules.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -12,8 +14,10 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
+    ActivitiesBindingModule::class,
     ApplicationModule::class,
-    RepositoryModule::class
+    RepositoryModule::class,
+    ViewModelModule::class
 ])
 interface AppComponent : AndroidInjector<FinitoApp>{
     @Component.Builder
@@ -24,5 +28,5 @@ interface AppComponent : AndroidInjector<FinitoApp>{
         fun build(): AppComponent
     }
 
-    fun create(app: FinitoApp): Unit
+    override fun inject(app: FinitoApp)
 }

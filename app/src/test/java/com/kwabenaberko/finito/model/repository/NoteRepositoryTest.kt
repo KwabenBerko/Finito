@@ -52,7 +52,7 @@ class NoteRepositoryTest {
         val note = Note(text = "A note to be deleted")
         val savedNote = noteRepository.saveNote(note)
 
-        noteRepository.deleteNote(savedNote)
+        noteRepository.deleteNote(savedNote.noteId)
 
         assertEquals(null, noteRepository.findNoteById(savedNote.noteId))
     }

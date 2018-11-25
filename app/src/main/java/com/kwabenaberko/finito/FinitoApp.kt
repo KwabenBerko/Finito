@@ -24,6 +24,6 @@ class FinitoApp : Application(), HasActivityInjector {
                 .app(this)
                 .applicationModule(ApplicationModule(this))
                 .build()
-                .create(this)
+                .inject(this)
     }
 }
