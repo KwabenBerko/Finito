@@ -5,14 +5,12 @@ import android.arch.lifecycle.MutableLiveData
 import com.kwabenaberko.finito.model.Note
 
 class NoteRepository {
-    private val NOTES = mutableListOf<Note>(
-            Note(text = "Watch Youtube Videos"),
-            Note(text = "Have A Good Sleep")
-    )
+    private val NOTES = mutableListOf<Note>()
     private val notesLiveData = MutableLiveData<List<Note>>()
 
     fun saveNote(note: Note): Note {
         NOTES.add(note)
+        notesLiveData.postValue(NOTES)
         return note
     }
 
@@ -26,6 +24,7 @@ class NoteRepository {
         val index = NOTES.indexOf(note)
         if(index > -1){
             NOTES[index] = note
+            notesLiveData.postValue(NOTES)
         }
         return note
     }
@@ -37,6 +36,7 @@ class NoteRepository {
 
         if(note != null){
             NOTES.remove(note)
+            notesLiveData.postValue(NOTES)
         }
     }
 

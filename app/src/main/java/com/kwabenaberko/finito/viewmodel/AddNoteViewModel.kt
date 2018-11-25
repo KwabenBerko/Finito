@@ -8,6 +8,7 @@ class AddNoteViewModel
 @Inject constructor (private val noteRepository: NoteRepository) : ObservableViewModel() {
     var newNote = Note(text = "")
 
+
     fun saveNewNote(){
         checkFieldsNotEmpty(newNote)
         noteRepository.saveNote(newNote)

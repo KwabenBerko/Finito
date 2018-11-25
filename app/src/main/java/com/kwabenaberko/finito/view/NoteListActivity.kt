@@ -2,6 +2,7 @@ package com.kwabenaberko.finito.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_note_list.*
 import kotlinx.android.synthetic.main.content_note_list.*
 import javax.inject.Inject
 
-class NoteListActivity : AppCompatActivity() {
+class NoteListActivity : AppCompatActivity(){
 
     @Inject
     lateinit var mFactory: ViewModelFactory
@@ -38,5 +39,10 @@ class NoteListActivity : AppCompatActivity() {
                 noteListAdapter.setNoteList(it)
             }
         })
+
+        fab.setOnClickListener {
+            startActivity(Intent(this, AddNoteActivity::class.java))
+        }
+
     }
 }
