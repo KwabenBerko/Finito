@@ -11,6 +11,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         >
 
         <TextView
@@ -18,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:padding="15dp"
             android:textSize="25sp"
             android:text="@{note.text}"
             tools:text="Learn Data Binding In Android"/>

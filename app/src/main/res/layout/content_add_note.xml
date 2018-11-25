@@ -30,6 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:text="@={vm.newNote.text}"
+                android:afterTextChanged="@{() -> vm.onNoteTextChanged()}"
                 android:textSize="30sp"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -43,6 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/note_text_input_layout"
             android:onClick="@{()-> vm.saveNewNote()}"
+            android:enabled="@{vm.newNote.text.trim().length() > 3}"
             android:text="Add"/>
     </android.support.constraint.ConstraintLayout>
 </layout>
