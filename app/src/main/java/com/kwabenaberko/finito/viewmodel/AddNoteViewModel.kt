@@ -1,31 +1,36 @@
 package com.kwabenaberko.finito.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.Bindable
-import android.util.Log
-import com.android.databinding.library.baseAdapters.BR
+import com.kwabenaberko.finito.BR
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.repository.NoteRepository
 import javax.inject.Inject
 
 class AddNoteViewModel
 @Inject constructor (private val noteRepository: NoteRepository) : ObservableViewModel() {
-    @get:Bindable
+    @get:Bindable var addBtnEnabled = false
+    var noteAdded = MutableLiveData<Boolean>()
     var newNote = Note(text = "")
 
-    fun saveNewNote(){
-        checkFieldsNotEmpty(newNote)
-        noteRepository.saveNote(newNote)
-    }
+
 
     fun onNoteTextChanged(){
-        Log.d("ADDNOTEVIEWMODEL", "Text Changed Called!")
-        notifyPropertyChanged(BR.newNote)
+        addBtnEnabled = newNote.text.trim().length > 3
+        notifyPropertyChanged(BR.addBtnEnabled)
     }
 
-    private fun checkFieldsNotEmpty(note: Note){
-
-        if(note.text.isEmpty() || note.color.isEmpty() || note.priority.name.isEmpty()){
-            throw IllegalArgumentException("Field cannot be empty")
-        }
+    fun saveNewNote(){
+        noteAdded.postValue(
+                try{
+                    noteRepository.saveNote(newNote)
+                    true
+                }
+                catch (e: Throwable){
+                    false
+                }
+        )
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.kwabenaberko.finito.model.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.content.res.Resources.NotFoundException
 import com.kwabenaberko.finito.model.Note
 
 class NoteRepository {
@@ -9,6 +10,7 @@ class NoteRepository {
     private val notesLiveData = MutableLiveData<List<Note>>()
 
     fun saveNote(note: Note): Note {
+        checkFieldsNotEmpty(note)
         NOTES.add(note)
         notesLiveData.postValue(NOTES)
         return note
@@ -17,10 +19,11 @@ class NoteRepository {
     fun findNoteById(noteId: Int): Note? {
         return NOTES.filter {
             it.noteId == noteId
-        }.firstOrNull()
+        }.firstOrNull()?:throw NotFoundException("Note not found")
     }
 
     fun updateNote(note: Note): Note? {
+        checkFieldsNotEmpty(note)
         val index = NOTES.indexOf(note)
         if(index > -1){
             NOTES[index] = note
@@ -32,12 +35,10 @@ class NoteRepository {
     fun deleteNote(noteId: Int){
         val note = NOTES.filter {
             it.noteId == noteId
-        }.firstOrNull()
+        }.firstOrNull() ?: throw NotFoundException("Note not found")
 
-        if(note != null){
-            NOTES.remove(note)
-            notesLiveData.postValue(NOTES)
-        }
+        NOTES.remove(note)
+        notesLiveData.postValue(NOTES)
     }
 
     fun findSavedNotes(): LiveData<List<Note>>{
@@ -45,4 +46,10 @@ class NoteRepository {
         return notesLiveData
     }
 
+    private fun checkFieldsNotEmpty(note: Note){
+
+        if(note.text.isEmpty() || note.color.isEmpty() || note.priority.name.isEmpty()){
+            throw IllegalArgumentException("Field cannot be empty")
+        }
+    }
 }

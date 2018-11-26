@@ -1,6 +1,7 @@
 package com.kwabenaberko.finito.model.repository
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import android.content.res.Resources.NotFoundException
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.Priority
 import junit.framework.Assert.assertEquals
@@ -29,9 +30,9 @@ class NoteRepositoryTest {
         assertEquals(savedNote, noteRepository.findNoteById(savedNote.noteId))
     }
 
-    @Test()
+    @Test(expected = NotFoundException::class)
     fun testFindNoteById_WithInvalidNoteId_ShouldReturnNull(){
-        assertEquals(null, noteRepository.findNoteById(1))
+        noteRepository.findNoteById(1)
     }
 
 
@@ -47,14 +48,15 @@ class NoteRepositoryTest {
         assertEquals(savedNote, updatedNote)
     }
 
-    @Test
+    @Test(expected = NotFoundException::class)
     fun testDeleteNote(){
         val note = Note(text = "A note to be deleted")
         val savedNote = noteRepository.saveNote(note)
 
         noteRepository.deleteNote(savedNote.noteId)
 
-        assertEquals(null, noteRepository.findNoteById(savedNote.noteId))
+        noteRepository.findNoteById(savedNote.noteId)
+
     }
 
 

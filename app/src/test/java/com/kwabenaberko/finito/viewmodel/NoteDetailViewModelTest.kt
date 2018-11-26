@@ -46,18 +46,6 @@ class NoteDetailViewModelTest {
     }
 
 
-    @Test(expected = IllegalArgumentException::class)
-    fun testUpdateCurrentNote_WithEmptyFields_ShouldThrowException(){
-        val stubNote = Note(text = "This is a stubbed note")
-        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyInt())).thenReturn(stubNote)
-        mNoteDetailViewModel.loadNote(15)
-
-        mNoteDetailViewModel.currentNote.text = ""
-        mNoteDetailViewModel.currentNote.color = ""
-
-        mNoteDetailViewModel.updateCurrentNote()
-
-    }
 
     @Test
     fun testUpdateCurrentNote(){

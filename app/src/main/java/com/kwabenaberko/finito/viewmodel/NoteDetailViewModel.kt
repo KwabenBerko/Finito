@@ -18,14 +18,7 @@ class NoteDetailViewModel
     }
 
     fun updateCurrentNote(){
-        checkFieldsNotEmpty(currentNote)
         noteRepository.updateNote(currentNote)
     }
 
-    private fun checkFieldsNotEmpty(note: Note){
-
-        if(note.text.isEmpty() || note.color.isEmpty() || note.priority.name.isEmpty()){
-            throw IllegalArgumentException("Field cannot be empty")
-        }
-    }
 }

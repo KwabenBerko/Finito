@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import com.kwabenaberko.finito.di.DaggerAppComponent
 import com.kwabenaberko.finito.di.modules.ApplicationModule
+import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -20,6 +21,12 @@ class FinitoApp : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
         DaggerAppComponent.builder()
                 .app(this)
                 .applicationModule(ApplicationModule(this))

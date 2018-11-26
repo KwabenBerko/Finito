@@ -33,6 +33,7 @@ class NoteListActivity : AppCompatActivity(){
         notes_recycler_view.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         notes_recycler_view.adapter = noteListAdapter
 
+
         mListViewModel = ViewModelProviders.of(this, mFactory).get(NoteListViewModel::class.java)
         mListViewModel.getNoteList().observe(this, Observer {
             if(it != null){

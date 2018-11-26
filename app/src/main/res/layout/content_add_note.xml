@@ -12,6 +12,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".view.AddNoteActivity"
         tools:showIn="@layout/activity_add_note">
@@ -44,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/note_text_input_layout"
             android:onClick="@{()-> vm.saveNewNote()}"
-            android:enabled="@{vm.newNote.text.trim().length() > 3}"
+            android:enabled="@{vm.addBtnEnabled}"
             android:text="Add"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

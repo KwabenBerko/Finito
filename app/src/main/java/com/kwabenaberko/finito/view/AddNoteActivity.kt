@@ -1,10 +1,10 @@
 package com.kwabenaberko.finito.view
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
 import com.kwabenaberko.finito.R
 import com.kwabenaberko.finito.databinding.ActivityAddNoteBinding
 import com.kwabenaberko.finito.viewmodel.AddNoteViewModel
@@ -22,21 +22,18 @@ class AddNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
         binding.vm = ViewModelProviders.of(this, mFactory).get(AddNoteViewModel::class.java)
+        binding.setLifecycleOwner(this)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "New note"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+
+        binding.vm!!.noteAdded.observe(this, Observer {status ->
+            if(status!!){
+                finish()
+            }
+        })
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        this.finish()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == android.R.id.home){
-            onBackPressed()
-        }
-        return false
-    }
 
 }
