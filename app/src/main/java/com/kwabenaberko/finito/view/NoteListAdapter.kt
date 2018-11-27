@@ -8,7 +8,7 @@ import com.kwabenaberko.finito.R
 import com.kwabenaberko.finito.databinding.NoteListItemBinding
 import com.kwabenaberko.finito.viewmodel.dto.NoteListItem
 
-class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>(){
+class NoteListAdapter(val onNoteListItemSelected: (item: NoteListItem) -> Unit) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>(){
 
     private val noteList = arrayListOf<NoteListItem>()
 
@@ -30,7 +30,7 @@ class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>(){
     }
 
     fun setNoteList(list: List<NoteListItem>){
-        noteList.clear()
+        noteList.clear() //Inefficient
         noteList.addAll(list)
         notifyDataSetChanged()
     }
@@ -38,6 +38,7 @@ class NoteListAdapter : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>(){
     inner class NoteViewHolder (private val binding: NoteListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(note: NoteListItem){
             binding.note = note
+            binding.deleteBtn.setOnClickListener { onNoteListItemSelected(note) }
             binding.executePendingBindings()
         }
     }

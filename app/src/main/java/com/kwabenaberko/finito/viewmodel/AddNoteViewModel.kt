@@ -9,19 +9,19 @@ import javax.inject.Inject
 
 class AddNoteViewModel
 @Inject constructor (private val noteRepository: NoteRepository) : ObservableViewModel() {
-    @get:Bindable var addBtnEnabled = false
-    var noteAdded = MutableLiveData<Boolean>()
+    @get:Bindable var isAddBtnEnabled = false
+    var isNoteAdded = MutableLiveData<Boolean>()
     var newNote = Note(text = "")
 
 
 
     fun onNoteTextChanged(){
-        addBtnEnabled = newNote.text.trim().length > 3
+        isAddBtnEnabled = newNote.text.trim().length > 3
         notifyPropertyChanged(BR.addBtnEnabled)
     }
 
     fun saveNewNote(){
-        noteAdded.postValue(
+        isNoteAdded.postValue(
                 try{
                     noteRepository.saveNote(newNote)
                     true

@@ -28,7 +28,7 @@ class AddNoteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 
-        binding.vm!!.noteAdded.observe(this, Observer {status ->
+        binding.vm!!.isNoteAdded.observe(this, Observer {status ->
             if(status!!){
                 finish()
             }
