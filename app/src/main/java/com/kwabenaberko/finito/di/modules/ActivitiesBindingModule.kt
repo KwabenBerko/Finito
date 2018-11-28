@@ -1,6 +1,7 @@
 package com.kwabenaberko.finito.di.modules
 
 import com.kwabenaberko.finito.view.AddNoteActivity
+import com.kwabenaberko.finito.view.NoteDetailActivity
 import com.kwabenaberko.finito.view.NoteListActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -12,4 +13,7 @@ abstract class ActivitiesBindingModule {
 
     @ContributesAndroidInjector
     abstract fun addNoteActivity(): AddNoteActivity
+
+    @ContributesAndroidInjector
+    abstract fun noteDetailActivity(): NoteDetailActivity
 }

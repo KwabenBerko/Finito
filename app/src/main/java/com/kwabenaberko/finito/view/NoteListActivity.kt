@@ -43,7 +43,9 @@ class NoteListActivity : AppCompatActivity(){
             }
 
             override fun onEdit(note: NoteListItem) {
-
+                val intent = Intent(this@NoteListActivity, NoteDetailActivity::class.java)
+                intent.putExtra("noteId", note.noteId)
+                startActivity(intent)
             }
         })
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.kwabenaberko.finito.viewmodel.NoteDetailViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".view.AddNoteActivity"
+        tools:showIn="@layout/activity_note_detail">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/note_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="Note title">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:text="@={vm.currentNote.text}"
+                android:afterTextChanged="@{() -> vm.onNoteTextChanged()}"
+                android:textSize="30sp"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textAllCaps="false"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/note_text_input_layout"
+            android:onClick="@{()-> vm.updateCurrentNote()}"
+            android:enabled="@{vm.isUpdateBtnEnabled}"
+            android:text="Update"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>

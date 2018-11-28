@@ -31,7 +31,7 @@ class NoteRepositoryTest {
     }
 
     @Test(expected = NotFoundException::class)
-    fun testFindNoteById_WithInvalidNoteId_ShouldReturnNull(){
+    fun testFindNoteById_WithInvalidNoteId_ShouldThrowException(){
         noteRepository.findNoteById(1)
     }
 

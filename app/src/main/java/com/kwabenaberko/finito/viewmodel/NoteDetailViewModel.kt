@@ -1,5 +1,6 @@
 package com.kwabenaberko.finito.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.content.res.Resources
 import android.databinding.Bindable
 import com.kwabenaberko.finito.BR
@@ -9,16 +10,35 @@ import javax.inject.Inject
 
 class NoteDetailViewModel
 @Inject constructor(private val noteRepository: NoteRepository): ObservableViewModel() {
-    @get:Bindable
-    lateinit var currentNote: Note
+    @get:Bindable var isUpdateBtnEnabled = false
+    @get:Bindable var currentNote = Note(text = "")
+    var isNoteUpdated = MutableLiveData<Boolean>()
+
+    private fun validateNote(){
+        isUpdateBtnEnabled = currentNote.text.trim().length > 3
+        notifyPropertyChanged(BR.updateBtnEnabled)
+    }
+
+    fun onNoteTextChanged(){
+        validateNote()
+    }
 
     fun loadNote(noteId: Int){
         currentNote = noteRepository.findNoteById(noteId) ?: throw Resources.NotFoundException()
+        validateNote()
         notifyPropertyChanged(BR.currentNote)
     }
 
     fun updateCurrentNote(){
-        noteRepository.updateNote(currentNote)
+        isNoteUpdated.postValue(
+                try{
+                    noteRepository.updateNote(currentNote)
+                    true
+                }
+                catch (t: Throwable){
+                    false
+                }
+        )
     }
 
 }
