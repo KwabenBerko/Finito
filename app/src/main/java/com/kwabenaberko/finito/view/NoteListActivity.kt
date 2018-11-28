@@ -12,6 +12,7 @@ import com.kwabenaberko.finito.R
 import com.kwabenaberko.finito.databinding.ActivityNoteListBinding
 import com.kwabenaberko.finito.viewmodel.NoteListViewModel
 import com.kwabenaberko.finito.viewmodel.ViewModelFactory
+import com.kwabenaberko.finito.viewmodel.dto.NoteListItem
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_note_list.*
 import kotlinx.android.synthetic.main.content_note_list.*
@@ -36,9 +37,15 @@ class NoteListActivity : AppCompatActivity(){
         binding.vm = mListViewModel
         binding.setLifecycleOwner(this)
 
-        noteListAdapter = NoteListAdapter {
-            mListViewModel.deleteNote(it.noteId)
-        }
+        noteListAdapter = NoteListAdapter(object : NoteListItemSelectedListener{
+            override fun onDelete(note: NoteListItem) {
+                mListViewModel.deleteNote(note.noteId)
+            }
+
+            override fun onEdit(note: NoteListItem) {
+
+            }
+        })
 
 
         mListViewModel.getNoteList().observe(this, Observer {
