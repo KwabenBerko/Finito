@@ -1,10 +1,7 @@
 package com.kwabenaberko.finito.di
 
 import com.kwabenaberko.finito.FinitoApp
-import com.kwabenaberko.finito.di.modules.ActivitiesBindingModule
-import com.kwabenaberko.finito.di.modules.ApplicationModule
-import com.kwabenaberko.finito.di.modules.RepositoryModule
-import com.kwabenaberko.finito.di.modules.ViewModelModule
+import com.kwabenaberko.finito.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -17,6 +14,7 @@ import javax.inject.Singleton
     ActivitiesBindingModule::class,
     ApplicationModule::class,
     RepositoryModule::class,
+    DatabaseModule::class,
     ViewModelModule::class
 ])
 interface AppComponent : AndroidInjector<FinitoApp>{

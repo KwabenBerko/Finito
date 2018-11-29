@@ -1,17 +1,23 @@
 package com.kwabenaberko.finito.model
 
-import java.util.*
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 
+@Entity(tableName = "notes")
 data class Note(
+        @PrimaryKey(autoGenerate = true)
+        var noteId: Int = 0,
+
+        @ColumnInfo
         var text: String,
+
+        @ColumnInfo
         var color: String = "#EAEAEA",
-        var priority: Priority = Priority.LOW
-){
-    private val _noteId: Int = Random().nextInt(Int.MAX_VALUE)
-    private val _createdAt: Long = System.currentTimeMillis()
 
-    val noteId: Int
-        get() = _noteId
+        @ColumnInfo
+        var priority: Priority = Priority.LOW,
 
-    val createdAt: Long get() = _createdAt
-}
+        @ColumnInfo
+        val createdAt: Long = System.currentTimeMillis()
+)
