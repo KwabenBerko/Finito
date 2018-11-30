@@ -11,6 +11,6 @@ class Converters {
 
     @TypeConverter
     fun intToPriorityEnum(ordinal: Int): Priority{
-        return Priority.valueOf(ordinal.toString())
+        return Priority.values().get(ordinal)
     }
 }
