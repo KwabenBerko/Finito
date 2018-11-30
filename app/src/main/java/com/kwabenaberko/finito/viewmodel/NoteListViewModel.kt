@@ -29,7 +29,7 @@ class NoteListViewModel
     }
 
 
-    fun deleteNote(noteId: Int){
+    fun deleteNote(noteId: Long){
         noteRepository.deleteNote(noteId)
     }
 

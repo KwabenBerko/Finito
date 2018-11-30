@@ -23,7 +23,7 @@ class NoteDetailViewModel
         validateNote()
     }
 
-    fun loadNote(noteId: Int){
+    fun loadNote(noteId: Long){
         currentNote = noteRepository.findNoteById(noteId) ?: throw Resources.NotFoundException()
         validateNote()
         notifyPropertyChanged(BR.currentNote)

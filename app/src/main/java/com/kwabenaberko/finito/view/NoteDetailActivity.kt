@@ -32,7 +32,7 @@ class NoteDetailActivity : AppCompatActivity() {
         binding.vm = noteDetailViewModel
         binding.setLifecycleOwner(this)
 
-        noteDetailViewModel.loadNote(intent.extras.getInt("noteId"))
+        noteDetailViewModel.loadNote(intent.extras.getLong("noteId"))
 
         noteDetailViewModel.isNoteUpdated.observe(this, Observer {
             finish()

@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "notes")
 data class Note(
         @PrimaryKey(autoGenerate = true)
-        var noteId: Int = 0,
+        var noteId: Long = 0,
 
         @ColumnInfo
         var text: String,

@@ -31,7 +31,7 @@ class NoteDetailViewModelTest {
     @Test
     fun testLoadNote(){
         val stubNote = Note(text = "Read book", priority = Priority.HIGH)
-        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyInt())).thenReturn(stubNote)
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
 
         mNoteDetailViewModel.loadNote(32)
 
@@ -42,7 +42,7 @@ class NoteDetailViewModelTest {
     @Test
     fun testUpdateCurrentNote_WhenTextIsInValid_UpdateButtonShouldDisabled(){
         val stubNote = Note(text = "Watch youtube videos", priority = Priority.MEDIUM)
-        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyInt())).thenReturn(stubNote)
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
 
         assertFalse(mNoteDetailViewModel.isUpdateBtnEnabled)
 
@@ -58,7 +58,7 @@ class NoteDetailViewModelTest {
     @Test
     fun testUpdateCurrentNote_WhenTextIsValid_UpdateButtonShouldBeEnabled(){
         val stubNote = Note(text = "A stubbed note", priority = Priority.MEDIUM)
-        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyInt())).thenReturn(stubNote)
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
 
         assertFalse(mNoteDetailViewModel.isUpdateBtnEnabled)
 
@@ -73,7 +73,7 @@ class NoteDetailViewModelTest {
     @Test
     fun testUpdateCurrentNote(){
         val stubNote = Note(text = "This is another stubbed note")
-        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyInt())).thenReturn(stubNote)
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
         mNoteDetailViewModel.loadNote(15)
 
         mNoteDetailViewModel.currentNote.text = "This is an updated text"

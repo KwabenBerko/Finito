@@ -16,7 +16,7 @@ class NoteRepository {
         return note
     }
 
-    fun findNoteById(noteId: Int): Note? {
+    fun findNoteById(noteId: Long): Note? {
         return NOTES.filter {
             it.noteId == noteId
         }.firstOrNull()?:throw NotFoundException("Note not found")
@@ -32,7 +32,7 @@ class NoteRepository {
         return note
     }
 
-    fun deleteNote(noteId: Int){
+    fun deleteNote(noteId: Long){
         val note = NOTES.filter {
             it.noteId == noteId
         }.firstOrNull() ?: throw NotFoundException("Note not found")

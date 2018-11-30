@@ -11,7 +11,7 @@ interface NoteDao {
     fun findSavedNotes(): LiveData<List<Note>>
 
     @Query("SELECT * FROM notes WHERE noteId = :noteId")
-    fun findNoteById(noteId: Int): Note
+    fun findNoteById(noteId: Long): Note
 
     @Insert
     fun saveNote(note: Note): Long
