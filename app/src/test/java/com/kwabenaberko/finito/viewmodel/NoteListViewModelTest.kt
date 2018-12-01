@@ -48,7 +48,7 @@ class NoteListViewModelTest {
     }
 
     @Test
-    fun testNoteList_WhenNoteIsNoteEmpty_IsNotAddedField_ShouldBeTrue(){
+    fun testNoteList_WhenNoteIsNotEmpty_IsNotAddedField_ShouldBeTrue(){
         val liveData = MutableLiveData<List<Note>>()
         liveData.value = listOf(
                 Note(text = "Listen to music")

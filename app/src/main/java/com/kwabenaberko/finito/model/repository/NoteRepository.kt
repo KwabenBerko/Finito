@@ -1,49 +1,42 @@
 package com.kwabenaberko.finito.model.repository
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.content.res.Resources.NotFoundException
+import com.kwabenaberko.finito.AppExecutors
 import com.kwabenaberko.finito.model.Note
+import com.kwabenaberko.finito.model.repository.database.NoteDao
+import javax.inject.Inject
 
-class NoteRepository {
-    private val NOTES = mutableListOf<Note>()
-    private val notesLiveData = MutableLiveData<List<Note>>()
-
+class NoteRepository
+@Inject constructor(
+        private val mAppExecutors: AppExecutors,
+        private val mNotesDao: NoteDao
+){
     fun saveNote(note: Note): Note {
         checkFieldsNotEmpty(note)
-        NOTES.add(note)
-        notesLiveData.postValue(NOTES)
-        return note
+        val noteId = mNotesDao.saveNote(note)
+        return note.copy(noteId = noteId)
+
     }
 
-    fun findNoteById(noteId: Long): Note? {
-        return NOTES.filter {
-            it.noteId == noteId
-        }.firstOrNull()?:throw NotFoundException("Note not found")
+    fun findNoteById(noteId: Long): Note {
+        return mNotesDao.findNoteById(noteId)
+                ?:throw NotFoundException("Note not found")
     }
 
-    fun updateNote(note: Note): Note? {
+    fun updateNote(note: Note): Note {
         checkFieldsNotEmpty(note)
-        val index = NOTES.indexOf(note)
-        if(index > -1){
-            NOTES[index] = note
-            notesLiveData.postValue(NOTES)
-        }
+        mNotesDao.updateNote(note)
         return note
     }
 
     fun deleteNote(noteId: Long){
-        val note = NOTES.filter {
-            it.noteId == noteId
-        }.firstOrNull() ?: throw NotFoundException("Note not found")
-
-        NOTES.remove(note)
-        notesLiveData.postValue(NOTES)
+        val noteToDelete = findNoteById(noteId)
+        mNotesDao.deleteNote(noteToDelete)
     }
 
     fun findSavedNotes(): LiveData<List<Note>>{
-        notesLiveData.postValue(NOTES)
-        return notesLiveData
+        return mNotesDao.findSavedNotes()
     }
 
     private fun checkFieldsNotEmpty(note: Note){

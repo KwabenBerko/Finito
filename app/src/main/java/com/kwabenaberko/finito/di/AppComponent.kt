@@ -12,9 +12,10 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
     ActivitiesBindingModule::class,
-    ApplicationModule::class,
-    RepositoryModule::class,
+    AppExecutorModule::class,
+    AppModule::class,
     DatabaseModule::class,
+    RepositoryModule::class,
     ViewModelModule::class
 ])
 interface AppComponent : AndroidInjector<FinitoApp>{
@@ -22,7 +23,7 @@ interface AppComponent : AndroidInjector<FinitoApp>{
     interface Builder{
         @BindsInstance
         fun app(app: FinitoApp): Builder
-        fun applicationModule(applicationModule: ApplicationModule): Builder
+        fun applicationModule(appModule: AppModule): Builder
         fun build(): AppComponent
     }
 

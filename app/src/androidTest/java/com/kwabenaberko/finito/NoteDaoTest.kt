@@ -72,8 +72,8 @@ class NoteDaoTest {
         val savedNote = mNoteDao.findNoteById(noteId)
 
         val newText = "Play subway surfers"
-        savedNote.text = newText
-        mNoteDao.updateNote(savedNote)
+        savedNote?.text = newText
+        mNoteDao.updateNote(savedNote!!)
 
         val updatedNote = mNoteDao.findNoteById(noteId)
 
@@ -87,7 +87,7 @@ class NoteDaoTest {
         val noteId = mNoteDao.saveNote(note)
         val savedNote = mNoteDao.findNoteById(noteId)
 
-        mNoteDao.deleteNote(savedNote)
+        mNoteDao.deleteNote(savedNote!!)
 
         assertNull(mNoteDao.findNoteById(noteId))
     }

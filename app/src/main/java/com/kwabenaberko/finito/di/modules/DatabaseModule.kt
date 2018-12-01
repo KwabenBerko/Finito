@@ -9,17 +9,14 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [ApplicationModule::class])
+@Module(includes = [AppModule::class])
 class DatabaseModule {
 
     @Provides
     @Singleton
     fun provideNoteDatabase(application: Application): NoteDatabase{
-        return Room.databaseBuilder(
-                application.applicationContext,
-                NoteDatabase::class.java,
-                application.getString(R.string.app_name)
-        ).build()
+        return Room.databaseBuilder(application.applicationContext, NoteDatabase::class.java, application.getString(R.string.app_name))git log
+                .build()
     }
 
     @Provides
