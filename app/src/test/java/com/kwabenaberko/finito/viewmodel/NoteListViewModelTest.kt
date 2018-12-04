@@ -11,6 +11,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -63,7 +64,9 @@ class NoteListViewModelTest {
     @Test
     fun testDeleteNote(){
         noteListViewModel.deleteNote(2)
-        verify(mockNoteRepository).deleteNote(Mockito.anyLong())
+        runBlocking {
+            verify(mockNoteRepository).deleteNote(Mockito.anyLong())
+        }
     }
 
 }

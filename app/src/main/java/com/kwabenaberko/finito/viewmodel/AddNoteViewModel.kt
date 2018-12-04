@@ -5,6 +5,7 @@ import android.databinding.Bindable
 import com.kwabenaberko.finito.BR
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.repository.NoteRepository
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class AddNoteViewModel
@@ -20,7 +21,7 @@ class AddNoteViewModel
         notifyPropertyChanged(BR.addBtnEnabled)
     }
 
-    fun saveNewNote(){
+    fun saveNewNote() = runBlocking{
         isNoteAdded.postValue(
                 try{
                     noteRepository.saveNote(newNote)

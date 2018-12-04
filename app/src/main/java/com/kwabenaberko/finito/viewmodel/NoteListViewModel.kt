@@ -6,6 +6,7 @@ import android.databinding.Bindable
 import com.kwabenaberko.finito.BR
 import com.kwabenaberko.finito.model.repository.NoteRepository
 import com.kwabenaberko.finito.viewmodel.dto.NoteListItem
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class NoteListViewModel
@@ -29,7 +30,7 @@ class NoteListViewModel
     }
 
 
-    fun deleteNote(noteId: Long){
+    fun deleteNote(noteId: Long) = runBlocking{
         noteRepository.deleteNote(noteId)
     }
 

@@ -4,6 +4,7 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kwabenaberko.finito.model.repository.NoteRepository
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.*
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -42,7 +43,9 @@ class AddNoteViewModelTest {
         mAddNoteViewModel.saveNewNote()
 
 
-        verify(mockNoteRepository).saveNote(mAddNoteViewModel.newNote)
+        runBlocking {
+            verify(mockNoteRepository).saveNote(mAddNoteViewModel.newNote)
+        }
         assertEquals(true, mAddNoteViewModel.isNoteAdded.value)
     }
 

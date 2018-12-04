@@ -6,6 +6,7 @@ import android.databinding.Bindable
 import com.kwabenaberko.finito.BR
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.repository.NoteRepository
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class NoteDetailViewModel
@@ -23,13 +24,13 @@ class NoteDetailViewModel
         validateNote()
     }
 
-    fun loadNote(noteId: Long){
+    fun loadNote(noteId: Long) = runBlocking{
         currentNote = noteRepository.findNoteById(noteId) ?: throw Resources.NotFoundException()
         validateNote()
         notifyPropertyChanged(BR.currentNote)
     }
 
-    fun updateCurrentNote(){
+    fun updateCurrentNote() = runBlocking{
         isNoteUpdated.postValue(
                 try{
                     noteRepository.updateNote(currentNote)
