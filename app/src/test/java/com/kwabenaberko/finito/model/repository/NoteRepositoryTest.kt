@@ -4,13 +4,13 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.content.res.Resources.NotFoundException
-import com.kwabenaberko.finito.AppExecutors
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.Priority
 import com.kwabenaberko.finito.model.repository.database.NoteDao
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,9 +27,6 @@ class NoteRepositoryTest{
     lateinit var mockNoteDao: NoteDao
 
     @Mock
-    lateinit var mockAppExecutors: AppExecutors
-
-    @Mock
     lateinit var mockObserver: Observer<List<Note>>
 
     private lateinit var noteRepository: NoteRepository
@@ -37,7 +34,7 @@ class NoteRepositoryTest{
     @Before
     fun setUp(){
         MockitoAnnotations.initMocks(this)
-        noteRepository = NoteRepository(mockAppExecutors, mockNoteDao)
+        noteRepository = NoteRepository(mockNoteDao)
     }
 
 
@@ -45,14 +42,18 @@ class NoteRepositoryTest{
     fun testSaveNote(){
         val note = Note(text = "Practice databinding", color = "#E1ECF4")
 
-        noteRepository.saveNote(note)
+        runBlocking {
+            noteRepository.saveNote(note)
+        }
 
         verify(mockNoteDao, times(1)).saveNote(note)
     }
 
     @Test(expected = NotFoundException::class)
     fun testFindNoteById_WithInvalidNoteId_ShouldThrowException(){
-        noteRepository.findNoteById(1)
+        runBlocking {
+            noteRepository.findNoteById(1)
+        }
         verify(mockNoteDao, never()).findNoteById(Mockito.anyLong())
     }
 
@@ -62,7 +63,9 @@ class NoteRepositoryTest{
         val noteStub = Note(text = "Listen to music")
         Mockito.`when`(mockNoteDao.findNoteById(Mockito.anyLong())).thenReturn(noteStub)
 
-        noteRepository.findNoteById(1)
+        runBlocking {
+            noteRepository.findNoteById(1)
+        }
 
         verify(mockNoteDao, times(1)).findNoteById(Mockito.anyLong())
     }
@@ -71,7 +74,9 @@ class NoteRepositoryTest{
     fun testUpdateNote_WithInvalidNote_ShouldThrowException(){
         val note = Note(text = "")
 
-        noteRepository.updateNote(note)
+        runBlocking {
+            noteRepository.updateNote(note)
+        }
 
         verify(mockNoteDao, never()).updateNote(Mockito.any(Note::class.java))
     }
@@ -80,7 +85,9 @@ class NoteRepositoryTest{
     fun testUpdateNote(){
         val note = Note(text = "Buy cornflakes")
 
-        noteRepository.updateNote(note)
+        runBlocking {
+            noteRepository.updateNote(note)
+        }
 
         verify(mockNoteDao, times(1)).updateNote(note)
     }
@@ -91,7 +98,9 @@ class NoteRepositoryTest{
 
         Mockito.`when`(mockNoteDao.findNoteById(Mockito.anyLong())).thenReturn(noteStub)
 
-        noteRepository.deleteNote(4)
+        runBlocking {
+            noteRepository.deleteNote(4)
+        }
 
         verify(mockNoteDao, times(1)).deleteNote(noteStub)
 
