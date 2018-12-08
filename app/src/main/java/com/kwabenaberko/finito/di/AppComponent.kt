@@ -14,6 +14,7 @@ import javax.inject.Singleton
     ActivitiesBindingModule::class,
     AppModule::class,
     DatabaseModule::class,
+    ContextDispatchersModule::class,
     RepositoryModule::class,
     ViewModelModule::class
 ])

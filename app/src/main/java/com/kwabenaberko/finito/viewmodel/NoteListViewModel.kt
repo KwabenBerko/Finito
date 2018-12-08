@@ -4,15 +4,28 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import android.databinding.Bindable
 import com.kwabenaberko.finito.BR
+import com.kwabenaberko.finito.ContextDispatchers
 import com.kwabenaberko.finito.model.repository.NoteRepository
 import com.kwabenaberko.finito.viewmodel.dto.NoteListItem
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 class NoteListViewModel
-@Inject constructor(val noteRepository: NoteRepository) : ObservableViewModel(){
+@Inject constructor(
+        private val contextDispatchers: ContextDispatchers,
+        private val noteRepository: NoteRepository) :
+        ObservableViewModel(), CoroutineScope{
     @get:Bindable
     var isNoteListVisible = false
+
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job + contextDispatchers.Main
+    private val scope = CoroutineScope(coroutineContext)
 
     fun getNoteList():LiveData<List<NoteListItem>> = Transformations.map(noteRepository.findSavedNotes()) { savedNotes ->
 
@@ -30,8 +43,13 @@ class NoteListViewModel
     }
 
 
-    fun deleteNote(noteId: Long) = runBlocking{
-        noteRepository.deleteNote(noteId)
+    fun deleteNote(noteId: Long) = scope.launch{
+        async(contextDispatchers.IO) {noteRepository.deleteNote(noteId)}.await()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
     }
 
 }

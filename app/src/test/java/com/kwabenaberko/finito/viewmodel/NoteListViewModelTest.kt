@@ -3,9 +3,11 @@ package com.kwabenaberko.finito.viewmodel
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
+import com.kwabenaberko.finito.ContextDispatchers
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.repository.NoteRepository
 import com.kwabenaberko.finito.viewmodel.dto.NoteListItem
+import com.kwabenaberko.finito.viewmodel.util.TestContextDispatchers
 import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
@@ -31,12 +33,15 @@ class NoteListViewModelTest {
     @Mock
     lateinit var observer: Observer<List<NoteListItem>>
 
-    lateinit var noteListViewModel: NoteListViewModel
+    private lateinit var noteListViewModel: NoteListViewModel
+
+    private lateinit var mTestContextDispatchers: ContextDispatchers
 
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        noteListViewModel = NoteListViewModel(mockNoteRepository)
+        mTestContextDispatchers = TestContextDispatchers()
+        noteListViewModel = NoteListViewModel(mTestContextDispatchers, mockNoteRepository)
     }
 
     @Test
@@ -62,11 +67,9 @@ class NoteListViewModelTest {
     }
 
     @Test
-    fun testDeleteNote(){
+    fun testDeleteNote() = runBlocking{
         noteListViewModel.deleteNote(2)
-        runBlocking {
-            verify(mockNoteRepository).deleteNote(Mockito.anyLong())
-        }
+        verify(mockNoteRepository).deleteNote(Mockito.anyLong())
     }
 
 }

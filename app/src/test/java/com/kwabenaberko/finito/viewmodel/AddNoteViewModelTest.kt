@@ -1,7 +1,9 @@
 package com.kwabenaberko.finito.viewmodel
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import com.kwabenaberko.finito.ContextDispatchers
 import com.kwabenaberko.finito.model.repository.NoteRepository
+import com.kwabenaberko.finito.viewmodel.util.TestContextDispatchers
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.*
 import kotlinx.coroutines.runBlocking
@@ -20,10 +22,13 @@ class AddNoteViewModelTest {
 
     private lateinit var mAddNoteViewModel: AddNoteViewModel
 
+    private lateinit var mTestContextDispatchers: ContextDispatchers
+
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        mAddNoteViewModel = AddNoteViewModel(mockNoteRepository)
+        mTestContextDispatchers = TestContextDispatchers()
+        mAddNoteViewModel = AddNoteViewModel(mTestContextDispatchers, mockNoteRepository)
     }
 
     @Test
@@ -37,15 +42,12 @@ class AddNoteViewModelTest {
     }
 
     @Test
-    fun testSaveNewNote(){
+    fun testSaveNewNote() = runBlocking{
         mAddNoteViewModel.newNote.text = "Buy cornflakes"
         mAddNoteViewModel.newNote.color = "#EAEAEA"
         mAddNoteViewModel.saveNewNote()
 
-
-        runBlocking {
-            verify(mockNoteRepository).saveNote(mAddNoteViewModel.newNote)
-        }
+        verify(mockNoteRepository).saveNote(mAddNoteViewModel.newNote)
         assertEquals(true, mAddNoteViewModel.isNoteAdded.value)
     }
 

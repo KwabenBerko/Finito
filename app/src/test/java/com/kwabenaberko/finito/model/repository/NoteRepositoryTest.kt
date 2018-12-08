@@ -39,39 +39,33 @@ class NoteRepositoryTest{
 
 
     @Test
-    fun testSaveNote(){
+    fun testSaveNote() = runBlocking<Unit>{
         val note = Note(text = "Practice databinding", color = "#E1ECF4")
 
-        runBlocking {
-            noteRepository.saveNote(note)
-        }
+        noteRepository.saveNote(note)
 
         verify(mockNoteDao, times(1)).saveNote(note)
     }
 
     @Test(expected = NotFoundException::class)
-    fun testFindNoteById_WithInvalidNoteId_ShouldThrowException(){
-        runBlocking {
-            noteRepository.findNoteById(1)
-        }
+    fun testFindNoteById_WithInvalidNoteId_ShouldThrowException() = runBlocking<Unit>{
+        noteRepository.findNoteById(1)
         verify(mockNoteDao, never()).findNoteById(Mockito.anyLong())
     }
 
 
     @Test
-    fun testFindNoteById(){
+    fun testFindNoteById() = runBlocking<Unit> {
         val noteStub = Note(text = "Listen to music")
         Mockito.`when`(mockNoteDao.findNoteById(Mockito.anyLong())).thenReturn(noteStub)
 
-        runBlocking {
-            noteRepository.findNoteById(1)
-        }
+        noteRepository.findNoteById(1)
 
         verify(mockNoteDao, times(1)).findNoteById(Mockito.anyLong())
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun testUpdateNote_WithInvalidNote_ShouldThrowException(){
+    fun testUpdateNote_WithInvalidNote_ShouldThrowException() = runBlocking{
         val note = Note(text = "")
 
         runBlocking {
@@ -82,25 +76,21 @@ class NoteRepositoryTest{
     }
 
     @Test
-    fun testUpdateNote(){
+    fun testUpdateNote() = runBlocking{
         val note = Note(text = "Buy cornflakes")
 
-        runBlocking {
-            noteRepository.updateNote(note)
-        }
+        noteRepository.updateNote(note)
 
         verify(mockNoteDao, times(1)).updateNote(note)
     }
 
     @Test
-    fun testDeleteNote(){
+    fun testDeleteNote() = runBlocking{
         val noteStub = Note(text = "Read book", priority = Priority.HIGH)
 
         Mockito.`when`(mockNoteDao.findNoteById(Mockito.anyLong())).thenReturn(noteStub)
 
-        runBlocking {
-            noteRepository.deleteNote(4)
-        }
+        noteRepository.deleteNote(4)
 
         verify(mockNoteDao, times(1)).deleteNote(noteStub)
 

@@ -7,6 +7,7 @@ import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.Priority
 import com.kwabenaberko.finito.model.repository.database.NoteDao
 import com.kwabenaberko.finito.model.repository.database.NoteDatabase
+import com.kwabenaberko.finito.util.LiveDataTestUtil
 import junit.framework.Assert.*
 import org.junit.After
 import org.junit.Before

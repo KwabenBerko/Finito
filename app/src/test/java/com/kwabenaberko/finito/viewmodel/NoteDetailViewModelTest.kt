@@ -1,9 +1,11 @@
 package com.kwabenaberko.finito.viewmodel
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import com.kwabenaberko.finito.ContextDispatchers
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.Priority
 import com.kwabenaberko.finito.model.repository.NoteRepository
+import com.kwabenaberko.finito.viewmodel.util.TestContextDispatchers
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.*
 import kotlinx.coroutines.runBlocking
@@ -23,16 +25,20 @@ class NoteDetailViewModelTest {
 
     private lateinit var mNoteDetailViewModel: NoteDetailViewModel
 
+    private lateinit var mTestContextDispatchers: ContextDispatchers
+
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        mNoteDetailViewModel = NoteDetailViewModel(mockNoteRepository)
+        mTestContextDispatchers = TestContextDispatchers()
+        mNoteDetailViewModel = NoteDetailViewModel(mTestContextDispatchers, mockNoteRepository)
     }
 
     @Test
-    fun testLoadNote(){
+    fun testLoadNote() = runBlocking{
         val stubNote = Note(text = "Read book", priority = Priority.HIGH)
-        runBlocking { Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote) }
+
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
 
         mNoteDetailViewModel.loadNote(32)
 
@@ -41,11 +47,9 @@ class NoteDetailViewModelTest {
     }
 
     @Test
-    fun testUpdateCurrentNote_WhenTextIsInValid_UpdateButtonShouldDisabled(){
+    fun testUpdateCurrentNote_WhenTextIsInValid_UpdateButtonShouldDisabled() = runBlocking{
         val stubNote = Note(text = "Watch youtube videos", priority = Priority.MEDIUM)
-        runBlocking {
-            Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
-        }
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
         assertFalse(mNoteDetailViewModel.isUpdateBtnEnabled)
 
         mNoteDetailViewModel.loadNote(5)
@@ -58,11 +62,10 @@ class NoteDetailViewModelTest {
     }
 
     @Test
-    fun testUpdateCurrentNote_WhenTextIsValid_UpdateButtonShouldBeEnabled(){
+    fun testUpdateCurrentNote_WhenTextIsValid_UpdateButtonShouldBeEnabled() = runBlocking{
         val stubNote = Note(text = "A stubbed note", priority = Priority.MEDIUM)
-        runBlocking {
-            Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
-        }
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
+
         assertFalse(mNoteDetailViewModel.isUpdateBtnEnabled)
 
         mNoteDetailViewModel.loadNote(5)
@@ -74,11 +77,10 @@ class NoteDetailViewModelTest {
 
 
     @Test
-    fun testUpdateCurrentNote(){
+    fun testUpdateCurrentNote() = runBlocking{
         val stubNote = Note(text = "This is another stubbed note")
-        runBlocking {
-            Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
-        }
+        Mockito.`when`(mockNoteRepository.findNoteById(Mockito.anyLong())).thenReturn(stubNote)
+
         mNoteDetailViewModel.loadNote(15)
 
         mNoteDetailViewModel.currentNote.text = "This is an updated text"
@@ -86,9 +88,7 @@ class NoteDetailViewModelTest {
 
         mNoteDetailViewModel.updateCurrentNote()
 
-        runBlocking {
-            verify(mockNoteRepository).updateNote(mNoteDetailViewModel.currentNote)
-        }
+        verify(mockNoteRepository).updateNote(mNoteDetailViewModel.currentNote)
         assertEquals(true, mNoteDetailViewModel.isNoteUpdated.value)
 
     }

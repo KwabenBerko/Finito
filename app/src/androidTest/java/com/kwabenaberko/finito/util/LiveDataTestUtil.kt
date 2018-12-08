@@ -1,4 +1,4 @@
-package com.kwabenaberko.finito
+package com.kwabenaberko.finito.util
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
