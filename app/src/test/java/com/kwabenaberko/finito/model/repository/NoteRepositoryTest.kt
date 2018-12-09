@@ -68,9 +68,7 @@ class NoteRepositoryTest{
     fun testUpdateNote_WithInvalidNote_ShouldThrowException() = runBlocking{
         val note = Note(text = "")
 
-        runBlocking {
-            noteRepository.updateNote(note)
-        }
+        noteRepository.updateNote(note)
 
         verify(mockNoteDao, never()).updateNote(Mockito.any(Note::class.java))
     }
