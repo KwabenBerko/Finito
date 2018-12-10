@@ -10,7 +10,7 @@ class NoteRepository
 @Inject constructor(
         private val mNotesDao: NoteDao
 ){
-    fun saveNote(note: Note): Note {
+    suspend fun saveNote(note: Note): Note {
         checkFieldsNotEmpty(note)
         val noteId = mNotesDao.saveNote(note)
         return note.copy(noteId = noteId)
