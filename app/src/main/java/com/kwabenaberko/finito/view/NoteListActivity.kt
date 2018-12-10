@@ -6,8 +6,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.StaggeredGridLayoutManager
 import com.kwabenaberko.finito.R
 import com.kwabenaberko.finito.databinding.ActivityNoteListBinding
 import com.kwabenaberko.finito.viewmodel.NoteListViewModel
@@ -56,8 +55,7 @@ class NoteListActivity : AppCompatActivity(){
             }
         })
 
-        notes_recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        notes_recycler_view.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        notes_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         notes_recycler_view.adapter = noteListAdapter
 
 

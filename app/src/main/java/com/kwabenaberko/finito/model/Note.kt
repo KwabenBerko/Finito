@@ -13,7 +13,7 @@ data class Note(
         var text: String,
 
         @ColumnInfo
-        var color: String = "#EAEAEA",
+        var color: String = "#777777",
 
         @ColumnInfo
         var priority: Priority = Priority.LOW,
