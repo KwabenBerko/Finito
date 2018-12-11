@@ -24,14 +24,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No notes yet."
-            android:textSize="20sp"
-            android:gravity="center"
+            android:orientation="vertical"
             android:visibility="@{vm.noteListVisible ? View.GONE : View.VISIBLE}"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_empty_notes"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorEmptyList"
+                android:text="Your notes will show up here."
+                android:textSize="20sp"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 </layout>

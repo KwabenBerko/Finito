@@ -29,7 +29,7 @@ class NoteListViewModel
 
     init{
         //For Testing Purposes
-        //deleteSavedNotes()
+        deleteSavedNotes()
     }
 
     fun getNoteList():LiveData<List<NoteListItem>> = Transformations.map(noteRepository.findSavedNotes()) { savedNotes ->

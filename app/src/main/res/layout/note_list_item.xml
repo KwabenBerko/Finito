@@ -18,7 +18,7 @@
         app:cardBackgroundColor="@{note.color}"
         app:cardUseCompatPadding="true"
         app:cardElevation="3dp"
-        app:cardCornerRadius="2dp"
+        app:cardCornerRadius="3dp"
         >
 
         <LinearLayout
