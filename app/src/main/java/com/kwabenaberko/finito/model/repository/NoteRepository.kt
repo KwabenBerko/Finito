@@ -32,6 +32,10 @@ class NoteRepository
         mNotesDao.deleteNote(noteToDelete)
     }
 
+    suspend fun deleteSavedNotes(){
+        mNotesDao.deleteSavedNotes()
+    }
+
     fun findSavedNotes(): LiveData<List<Note>>{
         return mNotesDao.findSavedNotes()
     }

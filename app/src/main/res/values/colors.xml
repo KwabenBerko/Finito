@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F48024</color>
-    <color name="colorPrimaryDark">#c27334</color>
+    <color name="colorPrimary">#EF6C00</color>
+    <color name="colorPrimaryDark">#C45900</color>
     <color name="colorAccent">@color/colorPrimaryDark</color>
+    <color name="colorRecyclerViewBackground">#E0E0E0</color>
+    <color name="colorListItemText">#4b4b4b</color>
 </resources>
