@@ -20,5 +20,5 @@ data class Note(
         var priority: Priority = Priority.LOW,
 
         @ColumnInfo
-        val modifiedAt: LocalDateTime = LocalDateTime.now()
+        var modifiedAt: LocalDateTime = LocalDateTime.now()
 )

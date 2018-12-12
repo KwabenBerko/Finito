@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.content.res.Resources.NotFoundException
 import com.kwabenaberko.finito.model.Note
 import com.kwabenaberko.finito.model.repository.database.NoteDao
+import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 class NoteRepository
@@ -23,6 +24,7 @@ class NoteRepository
 
     suspend fun updateNote(note: Note): Note {
         checkFieldsNotEmpty(note)
+        note.modifiedAt = LocalDateTime.now()
         mNotesDao.updateNote(note)
         return note
     }
