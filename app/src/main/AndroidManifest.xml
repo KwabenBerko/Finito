@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.kwabenaberko.finito"
+<manifest xmlns:tools="http://schemas.android.com/tools"
+          package="com.kwabenaberko.finito"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
@@ -9,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".view.NoteListActivity"
             android:label="@string/app_name"
@@ -24,12 +26,14 @@
             android:name=".view.AddNoteActivity"
             android:label="@string/title_activity_add_note"
             android:parentActivityName=".view.NoteListActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".view.NoteDetailActivity"
             android:label="@string/title_activity_edit_note"
             android:parentActivityName=".view.NoteListActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

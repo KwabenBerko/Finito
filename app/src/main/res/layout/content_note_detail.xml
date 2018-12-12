@@ -12,7 +12,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".view.AddNoteActivity"
         tools:showIn="@layout/activity_note_detail">
@@ -21,16 +21,18 @@
             android:id="@+id/note_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:hint="Note title">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorListItemText"
                 android:text="@={vm.currentNote.text}"
+                android:selection="@{vm.currentNote.text.length()}"
                 android:afterTextChanged="@{() -> vm.onNoteTextChanged()}"
                 android:textSize="30sp"/>
 
@@ -41,11 +43,14 @@
             android:layout_height="70dp"
             android:textAllCaps="false"
             android:textSize="22sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_text_input_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{()-> vm.updateCurrentNote()}"
             android:enabled="@{vm.isUpdateBtnEnabled}"
+            android:background="@drawable/primary_btn"
+            android:textColor="@android:color/white"
             android:text="Update"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

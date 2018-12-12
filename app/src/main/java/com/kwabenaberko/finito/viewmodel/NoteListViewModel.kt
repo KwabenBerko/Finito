@@ -27,10 +27,10 @@ class NoteListViewModel
         get() = job + contextDispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
 
-    init{
-        //For Testing Purposes
-        deleteSavedNotes()
-    }
+//    init{
+//        //For Testing Purposes
+//        deleteSavedNotes()
+//    }
 
     fun getNoteList():LiveData<List<NoteListItem>> = Transformations.map(noteRepository.findSavedNotes()) { savedNotes ->
 

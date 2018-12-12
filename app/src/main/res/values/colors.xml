@@ -6,5 +6,9 @@
     <color name="colorRecyclerViewBackground">#E0E0E0</color>
     <color name="colorEmptyList">#a7a6a6</color>
     <color name="colorListItemText">#4b4b4b</color>
+    <color name="colorPrimaryBtnNormalState">#2EA866</color>
+    <color name="colorPrimaryBtnDisabledState">#EEE</color>
+    <color name="colorPrimaryBtnFocusedState">#2EA866</color>
+    <color name="colorPrimaryBtnPressedState">#1c633d</color>
 
 </resources>
