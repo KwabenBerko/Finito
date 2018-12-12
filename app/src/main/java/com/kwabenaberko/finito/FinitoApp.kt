@@ -2,6 +2,7 @@ package com.kwabenaberko.finito
 
 import android.app.Activity
 import android.app.Application
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kwabenaberko.finito.di.DaggerAppComponent
 import com.kwabenaberko.finito.di.modules.AppModule
 import com.squareup.leakcanary.LeakCanary
@@ -21,6 +22,8 @@ class FinitoApp : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+
+        AndroidThreeTen.init(this)
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;

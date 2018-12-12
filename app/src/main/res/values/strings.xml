@@ -4,4 +4,6 @@
 
     <string name="title_activity_add_note">AddNoteActivity</string>
     <string name="title_activity_edit_note">EditNoteActivity</string>
+
+    <string name="message_last_modified">Last Modified: %s</string>
 </resources>

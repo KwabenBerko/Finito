@@ -3,6 +3,7 @@ package com.kwabenaberko.finito.model
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import org.threeten.bp.LocalDateTime
 
 @Entity(tableName = "notes")
 data class Note(
@@ -19,5 +20,5 @@ data class Note(
         var priority: Priority = Priority.LOW,
 
         @ColumnInfo
-        val createdAt: Long = System.currentTimeMillis()
+        val modifiedAt: LocalDateTime = LocalDateTime.now()
 )

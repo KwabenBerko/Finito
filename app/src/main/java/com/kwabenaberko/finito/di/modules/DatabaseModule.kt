@@ -16,6 +16,7 @@ class DatabaseModule {
     @Singleton
     fun provideNoteDatabase(application: Application): NoteDatabase{
         return Room.databaseBuilder(application.applicationContext, NoteDatabase::class.java, application.getString(R.string.app_name))
+                .fallbackToDestructiveMigration()
                 .build()
     }
 
