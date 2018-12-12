@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import com.kwabenaberko.finito.R
@@ -38,7 +39,13 @@ class NoteListActivity : AppCompatActivity(){
 
         noteListAdapter = NoteListAdapter(object : NoteListItemSelectedListener{
             override fun onDelete(note: NoteListItem) {
-                mListViewModel.deleteNote(note.noteId)
+                AlertDialog.Builder(this@NoteListActivity)
+                        .setMessage("Delete note?")
+                        .setNegativeButton("NO, CANCEL", null)
+                        .setPositiveButton("YES, DELETE") { dialogInterface, i ->
+                            mListViewModel.deleteNote(note.noteId)
+                        }
+                        .show()
             }
 
             override fun onEdit(note: NoteListItem) {

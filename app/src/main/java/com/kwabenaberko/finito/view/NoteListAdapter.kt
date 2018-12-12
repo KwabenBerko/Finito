@@ -39,7 +39,10 @@ class NoteListAdapter(val listener: NoteListItemSelectedListener) : RecyclerView
         fun bind(note: NoteListItem){
             binding.note = note
             binding.root.setOnClickListener { listener.onEdit(note) }
-            binding.deleteBtn.setOnClickListener { listener.onDelete(note) }
+            binding.root.setOnLongClickListener {
+                listener.onDelete(note)
+                true
+            }
             binding.executePendingBindings()
         }
     }
