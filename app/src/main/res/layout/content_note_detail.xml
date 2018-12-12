@@ -44,7 +44,7 @@
             android:layout_margin="8dp"
             android:textColor="@color/colorModifiedAtDate"
             app:layout_constraintTop_toBottomOf="@id/note_text_input_layout"
-            android:text="@{String.format(@string/message_last_modified, Helper.formatDate(vm.currentNote.modifiedAt, `d MMMM, yyyy`))}"
+            android:text="@{String.format(@string/message_last_modified, Helper.formatDate(vm.currentNote.modifiedAt, `d MMMM, yyyy hh:mm a`))}"
             />
         <Button
 
