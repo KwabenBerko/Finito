@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
         app:cardBackgroundColor="@{note.color}"
         app:cardUseCompatPadding="true"
         app:cardElevation="3dp"
