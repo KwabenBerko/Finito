@@ -27,10 +27,6 @@ class NoteListViewModel
         get() = job + contextDispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
 
-//    init{
-//        //For Testing Purposes
-//        deleteSavedNotes()
-//    }
 
     fun getNoteList():LiveData<List<NoteListItem>> = Transformations.map(noteRepository.findSavedNotes()) { savedNotes ->
 
@@ -45,10 +41,6 @@ class NoteListViewModel
             )
         }
 
-    }
-
-    fun deleteSavedNotes() = scope.launch {
-        async(contextDispatchers.IO) { noteRepository.deleteSavedNotes() }.await()
     }
 
     fun deleteNote(noteId: Long) = scope.launch{
