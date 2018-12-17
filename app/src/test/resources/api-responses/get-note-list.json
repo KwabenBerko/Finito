@@ -1,0 +1,23 @@
+[
+  {
+    "noteId": 1,
+    "text": "Eat Breakfast",
+    "color": "#FFFFFF",
+    "priority": "1",
+    "modifiedAt": "2018-12-13T07:15:21"
+  },
+  {
+    "noteId": 2,
+    "text": "Listen to music",
+    "color": "#FFFFFF",
+    "priority": "0",
+    "modifiedAt": "2018-12-14T17:13:30"
+  },
+  {
+    "noteId": 3,
+    "text": "Read blog posts",
+    "color": "#FFFFFF",
+    "priority": "2",
+    "modifiedAt": "2018-12-16T15:45:55"
+  }
+]
