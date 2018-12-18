@@ -7,6 +7,7 @@ import org.threeten.bp.LocalDateTime
 
 @Entity(tableName = "notes")
 data class Note(
+
         @PrimaryKey(autoGenerate = true)
         var noteId: Long = 0,
 
